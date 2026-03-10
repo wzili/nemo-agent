@@ -20,6 +20,7 @@
  */
 
 import * as React from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   Archive,
   ArchiveRestore,
@@ -47,6 +48,7 @@ import { LabelMenuItems, StatusMenuItems, ShareMenuItems } from './SessionMenuPa
 import { getFileManagerName } from '@/lib/platform'
 import type { SessionMeta } from '@/atoms/sessions'
 import { getSessionStatus, hasUnreadMeta, hasMessagesMeta } from '@/utils/session'
+import { buildMenuLabels } from '@/lib/i18n/menu-labels'
 
 export interface SessionMenuProps {
   /** Session data — display state is derived from this */
@@ -88,6 +90,8 @@ export function SessionMenu({
   onOpenInNewWindow,
   onDelete,
 }: SessionMenuProps) {
+  const { t } = useTranslation()
+  const menuLabels = buildMenuLabels(t, getFileManagerName())
   // Derive display state from item
   const sessionId = item.id
   const isFlagged = item.isFlagged ?? false
@@ -102,15 +106,15 @@ export function SessionMenu({
     const result = await window.electronAPI.sessionCommand(sessionId, { type: 'shareToViewer' }) as { success: boolean; url?: string; error?: string } | undefined
     if (result?.success && result.url) {
       await navigator.clipboard.writeText(result.url)
-      toast.success('Link copied to clipboard', {
+      toast.success(menuLabels.session.linkCopied, {
         description: result.url,
         action: {
-          label: 'Open',
+          label: menuLabels.session.open,
           onClick: () => window.electronAPI.openUrl(result.url!),
         },
       })
     } else {
-      toast.error('Failed to share', { description: result?.error || 'Unknown error' })
+      toast.error(menuLabels.session.failedToShare, { description: result?.error || menuLabels.session.unknownError })
     }
   }
 
@@ -122,16 +126,16 @@ export function SessionMenu({
     const result = await window.electronAPI.sessionCommand(sessionId, { type: 'copyPath' }) as { success: boolean; path?: string } | undefined
     if (result?.success && result.path) {
       await navigator.clipboard.writeText(result.path)
-      toast.success('Path copied to clipboard')
+      toast.success(menuLabels.session.pathCopied)
     }
   }
 
   const handleRefreshTitle = async () => {
     const result = await window.electronAPI.sessionCommand(sessionId, { type: 'refreshTitle' }) as { success: boolean; title?: string; error?: string } | undefined
     if (result?.success) {
-      toast.success('Title refreshed', { description: result.title })
+      toast.success(menuLabels.session.titleRefreshed, { description: result.title })
     } else {
-      toast.error('Failed to refresh title', { description: result?.error || 'Unknown error' })
+      toast.error(menuLabels.session.failedToRefreshTitle, { description: result?.error || menuLabels.session.unknownError })
     }
   }
 
@@ -168,13 +172,13 @@ export function SessionMenu({
       {!sharedUrl ? (
         <MenuItem onClick={handleShare}>
           <CloudUpload className="h-3.5 w-3.5" />
-          <span className="flex-1">Share</span>
+          <span className="flex-1">{menuLabels.session.share}</span>
         </MenuItem>
       ) : (
         <Sub>
           <SubTrigger className="pr-2">
             <CloudUpload className="h-3.5 w-3.5" />
-            <span className="flex-1">Shared</span>
+            <span className="flex-1">{menuLabels.session.shared}</span>
           </SubTrigger>
           <SubContent>
             <ShareMenuItems sessionId={sessionId} sharedUrl={sharedUrl} menu={{ MenuItem, Separator }} />
@@ -194,7 +198,7 @@ export function SessionMenu({
                 : icon
             })()}
           </span>
-          <span className="flex-1">Status</span>
+          <span className="flex-1">{menuLabels.session.status}</span>
         </SubTrigger>
         <SubContent>
           <StatusMenuItems
@@ -211,7 +215,7 @@ export function SessionMenu({
         <Sub>
           <SubTrigger className="pr-2">
             <Tag className="h-3.5 w-3.5" />
-            <span className="flex-1">Labels</span>
+            <span className="flex-1">{menuLabels.session.labels}</span>
             {sessionLabels.length > 0 && (
               <span className="text-[10px] text-muted-foreground tabular-nums -mr-2.5">
                 {sessionLabels.length}
@@ -233,12 +237,12 @@ export function SessionMenu({
       {!isFlagged ? (
         <MenuItem onClick={onFlag}>
           <Flag className="h-3.5 w-3.5 text-info" />
-          <span className="flex-1">Flag</span>
+          <span className="flex-1">{menuLabels.session.flag}</span>
         </MenuItem>
       ) : (
         <MenuItem onClick={onUnflag}>
           <FlagOff className="h-3.5 w-3.5" />
-          <span className="flex-1">Unflag</span>
+          <span className="flex-1">{menuLabels.session.unflag}</span>
         </MenuItem>
       )}
 
@@ -246,12 +250,12 @@ export function SessionMenu({
       {!isArchived ? (
         <MenuItem onClick={onArchive}>
           <Archive className="h-3.5 w-3.5" />
-          <span className="flex-1">Archive</span>
+          <span className="flex-1">{menuLabels.session.archive}</span>
         </MenuItem>
       ) : (
         <MenuItem onClick={onUnarchive}>
           <ArchiveRestore className="h-3.5 w-3.5" />
-          <span className="flex-1">Unarchive</span>
+          <span className="flex-1">{menuLabels.session.unarchive}</span>
         </MenuItem>
       )}
 
@@ -259,7 +263,7 @@ export function SessionMenu({
       {!_hasUnread && _hasMessages && (
         <MenuItem onClick={onMarkUnread}>
           <MailOpen className="h-3.5 w-3.5" />
-          <span className="flex-1">Mark as Unread</span>
+          <span className="flex-1">{menuLabels.session.markAsUnread}</span>
         </MenuItem>
       )}
 
@@ -268,13 +272,13 @@ export function SessionMenu({
       {/* Rename */}
       <MenuItem onClick={onRename}>
         <Pencil className="h-3.5 w-3.5" />
-        <span className="flex-1">Rename</span>
+        <span className="flex-1">{menuLabels.session.rename}</span>
       </MenuItem>
 
       {/* Regenerate Title - AI-generate based on recent messages */}
       <MenuItem onClick={handleRefreshTitle}>
         <RefreshCw className="h-3.5 w-3.5" />
-        <span className="flex-1">Regenerate Title</span>
+        <span className="flex-1">{menuLabels.session.regenerateTitle}</span>
       </MenuItem>
 
       <Separator />
@@ -282,25 +286,25 @@ export function SessionMenu({
       {/* Open in New Panel */}
       <MenuItem onClick={handleOpenInNewPanel}>
         <Columns2 className="h-3.5 w-3.5" />
-        <span className="flex-1">Open in New Panel</span>
+        <span className="flex-1">{menuLabels.session.openInNewPanel}</span>
       </MenuItem>
 
       {/* Open in New Window */}
       <MenuItem onClick={onOpenInNewWindow}>
         <AppWindow className="h-3.5 w-3.5" />
-        <span className="flex-1">Open in New Window</span>
+        <span className="flex-1">{menuLabels.session.openInNewWindow}</span>
       </MenuItem>
 
       {/* Show in file manager */}
       <MenuItem onClick={handleShowInFinder}>
         <FolderOpen className="h-3.5 w-3.5" />
-        <span className="flex-1">{`Show in ${getFileManagerName()}`}</span>
+        <span className="flex-1">{menuLabels.session.showInApp}</span>
       </MenuItem>
 
       {/* Copy Path */}
       <MenuItem onClick={handleCopyPath}>
         <Copy className="h-3.5 w-3.5" />
-        <span className="flex-1">Copy Path</span>
+        <span className="flex-1">{menuLabels.session.copyPath}</span>
       </MenuItem>
 
       <Separator />
@@ -308,7 +312,7 @@ export function SessionMenu({
       {/* Delete */}
       <MenuItem onClick={onDelete} variant="destructive">
         <Trash2 className="h-3.5 w-3.5" />
-        <span className="flex-1">Delete</span>
+        <span className="flex-1">{menuLabels.session.delete}</span>
       </MenuItem>
     </>
   )

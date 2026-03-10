@@ -619,6 +619,8 @@ app.whenReady().then(async () => {
         windowManager,
         browserPaneManager,
         oauthFlowStore,
+        handleDeepLink,
+        resolveClientId,
       }
 
       // Register RPC handlers (must happen before window creation)

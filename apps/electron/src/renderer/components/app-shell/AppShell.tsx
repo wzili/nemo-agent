@@ -1,5 +1,6 @@
 import * as React from "react"
 import { useRef, useState, useEffect, useCallback, useMemo } from "react"
+import { useTranslation } from "react-i18next"
 import { useAtomValue, useStore } from "jotai"
 import { motion, AnimatePresence } from "motion/react"
 import {
@@ -470,6 +471,8 @@ function AppShellContent({
   menuNewChatTrigger,
   isFocusedMode = false,
 }: AppShellProps) {
+  const { t } = useTranslation()
+
   // Destructure commonly used values from context
   // Note: sessions is NOT destructured here - we use sessionMetaMapAtom instead
   // to prevent closures from retaining the full messages array
@@ -2050,24 +2053,24 @@ function AppShellContent({
     }
 
     // Settings navigator
-    if (isSettingsNavigation(navState)) return 'Settings'
+    if (isSettingsNavigation(navState)) return t('nav.settings')
 
     // Sessions navigator - use sessionFilter
-    if (!sessionFilter) return 'All Sessions'
+    if (!sessionFilter) return t('nav.allSessions')
 
     switch (sessionFilter.kind) {
       case 'flagged':
-        return 'Flagged'
+        return t('nav.flagged')
       case 'state': {
         const state = effectiveSessionStatuses.find(s => s.id === sessionFilter.stateId)
-        return state?.label || 'All Sessions'
+        return state?.label || t('nav.allSessions')
       }
       case 'label':
         return sessionFilter.labelId === '__all__' ? 'Labels' : getLabelDisplayName(labelConfigs, sessionFilter.labelId)
       case 'view':
         return sessionFilter.viewId === '__all__' ? 'Views' : viewConfigs.find(v => v.id === sessionFilter.viewId)?.name || 'Views'
       default:
-        return 'All Sessions'
+        return t('nav.allSessions')
     }
   }, [navState, sessionFilter, effectiveSessionStatuses, labelConfigs, viewConfigs, automationFilter])
 
@@ -2217,7 +2220,7 @@ function AppShellContent({
                     // All Sessions: expandable with status children (sortable) + Flagged & Archived as trailing items
                     {
                       id: "nav:allSessions",
-                      title: "All Sessions",
+                      title: t('nav.allSessions'),
                       label: String(workspaceSessionMetas.length),
                       icon: Inbox,
                       variant: sessionFilter?.kind === 'allSessions' ? "default" : "ghost",
@@ -2267,7 +2270,7 @@ function AppShellContent({
                         // Flagged (trailing, non-sortable)
                         {
                           id: "nav:flagged",
-                          title: "Flagged",
+                          title: t('nav.flagged'),
                           label: String(flaggedCount),
                           icon: <Flag className="h-3.5 w-3.5" />,
                           variant: (sessionFilter?.kind === 'flagged' ? "default" : "ghost") as "default" | "ghost",
@@ -2276,7 +2279,7 @@ function AppShellContent({
                         // Archived (trailing, non-sortable)
                         {
                           id: "nav:archived",
-                          title: "Archived",
+                          title: t('nav.archived'),
                           label: archivedCount > 0 ? String(archivedCount) : undefined,
                           icon: Archive,
                           variant: (sessionFilter?.kind === 'archived' ? "default" : "ghost") as "default" | "ghost",
@@ -2308,7 +2311,7 @@ function AppShellContent({
                     // --- Sources & Skills Section ---
                     {
                       id: "nav:sources",
-                      title: "Sources",
+                      title: t('nav.sources'),
                       label: String(sources.length),
                       icon: DatabaseZap,
                       variant: (isSourcesNavigation(navState) && !sourceFilter) ? "default" : "ghost",
@@ -2365,7 +2368,7 @@ function AppShellContent({
                     },
                     {
                       id: "nav:skills",
-                      title: "Skills",
+                      title: t('nav.skills'),
                       label: String(skills.length),
                       icon: Zap,
                       variant: isSkillsNavigation(navState) ? "default" : "ghost",
@@ -2377,7 +2380,7 @@ function AppShellContent({
                     },
                     {
                       id: "nav:automations",
-                      title: "Automations",
+                      title: t('nav.automations'),
                       label: String(automations.length),
                       icon: ListTodo,
                       variant: (isAutomationsNavigation(navState) && !automationFilter) ? "default" : "ghost",
@@ -2424,7 +2427,7 @@ function AppShellContent({
                     // --- Settings ---
                     {
                       id: "nav:settings",
-                      title: "Settings",
+                      title: t('nav.settings'),
                       icon: Settings,
                       variant: isSettingsNavigation(navState) ? "default" : "ghost",
                       onClick: () => handleSettingsClick('app'),
@@ -2432,7 +2435,7 @@ function AppShellContent({
                     // --- What's New ---
                     {
                       id: "nav:whats-new",
-                      title: "What's New",
+                      title: t('nav.whatsNew'),
                       icon: hasUnseenReleaseNotes ? (
                         <span className="relative">
                           <Cake className="h-3.5 w-3.5" />

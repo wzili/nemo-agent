@@ -8,6 +8,7 @@
 
 import * as React from 'react'
 import { MoreHorizontal, AppWindow, ExternalLink } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { HeaderIconButton } from './HeaderIconButton'
 import {
   DropdownMenu,
@@ -19,6 +20,7 @@ import {
   StyledDropdownMenuSeparator,
 } from './styled-dropdown'
 import { type DocFeature, getDocUrl } from '@craft-agent/shared/docs/doc-links'
+import { buildMenuLabels } from '@/lib/i18n/menu-labels'
 
 interface HeaderMenuProps {
   /** Route string for Open in New Window action */
@@ -30,6 +32,9 @@ interface HeaderMenuProps {
 }
 
 export function HeaderMenu({ route, children, helpFeature }: HeaderMenuProps) {
+  const { t } = useTranslation()
+  const labels = buildMenuLabels(t)
+
   const handleOpenInNewWindow = async () => {
     const separator = route.includes('?') ? '&' : '?'
     const url = `craftagents://${route}${separator}window=focused`
@@ -54,14 +59,14 @@ export function HeaderMenu({ route, children, helpFeature }: HeaderMenuProps) {
         {children && <StyledDropdownMenuSeparator />}
         <StyledDropdownMenuItem onClick={handleOpenInNewWindow}>
           <AppWindow className="h-3.5 w-3.5" />
-          <span className="flex-1">Open in New Window</span>
+          <span className="flex-1">{labels.header.openInNewWindow}</span>
         </StyledDropdownMenuItem>
         {helpFeature && (
           <>
             <StyledDropdownMenuSeparator />
             <StyledDropdownMenuItem onClick={handleLearnMore}>
               <ExternalLink className="h-3.5 w-3.5" />
-              <span className="flex-1">Learn More</span>
+              <span className="flex-1">{labels.header.learnMore}</span>
             </StyledDropdownMenuItem>
           </>
         )}

@@ -15,6 +15,7 @@
  */
 
 import * as React from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   Trash2,
   FolderOpen,
@@ -22,6 +23,7 @@ import {
 } from 'lucide-react'
 import { useMenuComponents } from '@/components/ui/menu-context'
 import { getFileManagerName } from '@/lib/platform'
+import { buildMenuLabels } from '@/lib/i18n/menu-labels'
 
 export interface SkillMenuProps {
   /** Skill slug */
@@ -45,6 +47,8 @@ export function SkillMenu({
   onShowInFinder,
   onDelete,
 }: SkillMenuProps) {
+  const { t } = useTranslation()
+  const labels = buildMenuLabels(t, getFileManagerName())
   // Get menu components from context (works with both DropdownMenu and ContextMenu)
   const { MenuItem, Separator } = useMenuComponents()
 
@@ -53,13 +57,13 @@ export function SkillMenu({
       {/* Open in New Window */}
       <MenuItem onClick={onOpenInNewWindow}>
         <AppWindow className="h-3.5 w-3.5" />
-        <span className="flex-1">Open in New Window</span>
+        <span className="flex-1">{labels.skill.openInNewWindow}</span>
       </MenuItem>
 
       {/* Show in file manager */}
       <MenuItem onClick={onShowInFinder}>
         <FolderOpen className="h-3.5 w-3.5" />
-        <span className="flex-1">{`Show in ${getFileManagerName()}`}</span>
+        <span className="flex-1">{labels.skill.showInApp}</span>
       </MenuItem>
 
       <Separator />
@@ -67,7 +71,7 @@ export function SkillMenu({
       {/* Delete */}
       <MenuItem onClick={onDelete} variant="destructive">
         <Trash2 className="h-3.5 w-3.5" />
-        <span className="flex-1">Delete Skill</span>
+        <span className="flex-1">{labels.skill.delete}</span>
       </MenuItem>
     </>
   )

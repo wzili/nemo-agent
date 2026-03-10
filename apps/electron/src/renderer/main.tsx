@@ -4,11 +4,13 @@ import { init as sentryInit } from '@sentry/electron/renderer'
 import * as Sentry from '@sentry/react'
 import { captureConsoleIntegration } from '@sentry/react'
 import { Provider as JotaiProvider, useAtomValue } from 'jotai'
+import { I18nextProvider } from 'react-i18next'
 import App from './App'
 import { ThemeProvider } from './context/ThemeContext'
 import { windowWorkspaceIdAtom } from './atoms/sessions'
 import { Toaster } from '@/components/ui/sonner'
 import './index.css'
+import i18n from './lib/i18n'
 
 // Known-harmless console messages that should NOT be sent to Sentry.
 // These are dev-mode noise or expected warnings that aren't actionable.
@@ -104,9 +106,11 @@ function Root() {
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Sentry.ErrorBoundary fallback={<CrashFallback />}>
-      <JotaiProvider>
-        <Root />
-      </JotaiProvider>
+      <I18nextProvider i18n={i18n}>
+        <JotaiProvider>
+          <Root />
+        </JotaiProvider>
+      </I18nextProvider>
     </Sentry.ErrorBoundary>
   </React.StrictMode>
 )

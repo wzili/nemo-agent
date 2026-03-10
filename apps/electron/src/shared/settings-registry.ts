@@ -41,6 +41,7 @@ export const SETTINGS_PAGES = [
   { id: 'labels', label: 'Labels', description: 'Manage session labels' },
   { id: 'shortcuts', label: 'Shortcuts', description: 'Keyboard shortcuts' },
   { id: 'preferences', label: 'Preferences', description: 'User preferences' },
+  { id: 'language', label: 'Language', description: 'Language and region settings' },
 ] as const satisfies readonly SettingsPageDefinition[]
 
 /**

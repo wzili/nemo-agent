@@ -11,6 +11,7 @@
 
 import * as React from 'react'
 import { useState, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { ColumnDef } from '@tanstack/react-table'
 import { Maximize2 } from 'lucide-react'
 import { Info_DataTable, SortableHeader } from './Info_DataTable'
@@ -185,6 +186,7 @@ export function AutoRulesDataTable({
   fullscreenTitle = 'Auto-Apply Rules',
   className,
 }: AutoRulesDataTableProps) {
+  const { t } = useTranslation()
   const [isFullscreen, setIsFullscreen] = useState(false)
   const { isDark } = useTheme()
 

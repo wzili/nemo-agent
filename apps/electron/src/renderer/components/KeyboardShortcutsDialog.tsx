@@ -4,6 +4,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { useTranslation } from "react-i18next"
 import { useRegisterModal } from "@/context/ModalContext"
 import { isMac } from "@/lib/platform"
 import { actionsByCategory, useActionLabel, type ActionId } from "@/actions"
@@ -139,6 +140,7 @@ function StaticSection({ section }: { section: ShortcutSection }) {
 }
 
 export function KeyboardShortcutsDialog({ open, onOpenChange }: KeyboardShortcutsDialogProps) {
+  const { t } = useTranslation()
   // Register with modal context so X button / Cmd+W closes this dialog first
   useRegisterModal(open, () => onOpenChange(false))
 
@@ -146,7 +148,7 @@ export function KeyboardShortcutsDialog({ open, onOpenChange }: KeyboardShortcut
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px] max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Keyboard Shortcuts</DialogTitle>
+          <DialogTitle>{t('dialog.keyboardShortcuts')}</DialogTitle>
         </DialogHeader>
         <div className="space-y-6 py-2">
           {/* Registry-driven sections */}

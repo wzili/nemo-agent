@@ -11,6 +11,7 @@
 
 import * as React from 'react'
 import { useState, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Webhook } from 'lucide-react'
 import { Tooltip, TooltipTrigger, TooltipContent } from '@craft-agent/ui'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -171,6 +172,7 @@ export function AutomationsListPanel({
   workspaceRootPath,
   className,
 }: AutomationsListPanelProps) {
+  const { t } = useTranslation()
   const [searchQuery, setSearchQuery] = useState('')
   const [searchActive, setSearchActive] = useState(false)
 
@@ -235,8 +237,8 @@ export function AutomationsListPanel({
       <div className={cn('flex flex-col flex-1 min-h-0', className)}>
         <EntityListEmptyScreen
           icon={<Webhook />}
-          title="No automations configured"
-          description="Automations run actions when events occur — execute commands on schedules, react to label changes, or trigger prompts automatically."
+          title={t('automation.noAutomations')}
+          description={t('automation.noAutomationsDescription')}
           docKey="automations"
         >
           {workspaceRootPath && (
@@ -266,7 +268,7 @@ export function AutomationsListPanel({
             setSearchActive(false)
             setSearchQuery('')
           }}
-          placeholder="Search automations..."
+          placeholder={t('automation.searchAutomations')}
           resultCount={isSearchMode ? filteredAutomations.length : undefined}
         />
       )}
@@ -275,14 +277,14 @@ export function AutomationsListPanel({
       {filteredAutomations.length === 0 ? (
         <div className="flex-1 flex flex-col items-center justify-center gap-1">
           <p className="text-sm text-muted-foreground">
-            {isSearchMode ? 'No automations found' : 'No automations configured.'}
+            {isSearchMode ? t('automation.noAutomationsFound') : t('automation.noAutomationsConfigured')}
           </p>
           {isSearchMode && (
             <button
               onClick={() => setSearchQuery('')}
               className="text-xs text-foreground hover:underline"
             >
-              Clear search
+              {t('session.clearSearch')}
             </button>
           )}
         </div>

@@ -6,6 +6,7 @@
  */
 
 import { CheckCircle2, XCircle, Loader2 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { Info_Alert } from '@/components/info'
 import { cn } from '@/lib/utils'
 import type { TestResult } from './types'
@@ -16,6 +17,7 @@ export interface AutomationTestPanelProps {
 }
 
 export function AutomationTestPanel({ result, className }: AutomationTestPanelProps) {
+  const { t } = useTranslation()
   if (result.state === 'idle') return null
 
   // Running state
@@ -23,7 +25,7 @@ export function AutomationTestPanel({ result, className }: AutomationTestPanelPr
     return (
       <div className={cn('flex items-center gap-2 px-4 py-3 text-sm text-muted-foreground', className)}>
         <Loader2 className="h-4 w-4 animate-spin" />
-        <span>Running test...</span>
+        <span>{t('automation.runningTest')}</span>
       </div>
     )
   }
@@ -48,7 +50,7 @@ export function AutomationTestPanel({ result, className }: AutomationTestPanelPr
   if (result.state === 'error') {
     return (
       <Info_Alert variant="error" icon={<XCircle className="h-4 w-4" />} className={className}>
-        <Info_Alert.Title>Test Failed</Info_Alert.Title>
+        <Info_Alert.Title>{t('automation.testFailed')}</Info_Alert.Title>
         {result.stderr && (
           <Info_Alert.Description>
             <pre className="font-mono text-xs mt-1 whitespace-pre-wrap text-destructive">{result.stderr}</pre>

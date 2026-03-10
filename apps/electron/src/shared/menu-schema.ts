@@ -235,6 +235,7 @@ const SETTINGS_ICONS: Record<SettingsSubpage, string> = {
   labels: 'Tag',
   shortcuts: 'Keyboard',
   preferences: 'UserCircle',
+  language: 'Globe',
 }
 
 /**

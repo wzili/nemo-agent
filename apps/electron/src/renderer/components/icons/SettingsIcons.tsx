@@ -158,6 +158,23 @@ export const PreferencesIcon = ({ className }: IconProps) => (
   </svg>
 )
 
+/** Globe/language icon for language settings */
+export const LanguageIcon = ({ className }: IconProps) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM11 6.5C11 5.67157 11.6716 5 12.5 5C13.3284 5 14 5.67157 14 6.5C14 7.32843 13.3284 8 12.5 8C11.6716 8 11 7.32843 11 6.5ZM9.5 10C9.5 9.44772 9.94772 9 10.5 9H14.5C15.0523 9 15.5 9.44772 15.5 10V10.5C15.5 11.3284 14.8284 12 14 12H10.5C9.67157 12 9 11.3284 9 10.5V10ZM7.5 13.5C7.5 12.9477 7.94772 12.5 8.5 12.5H15.5C16.0523 12.5 16.5 12.9477 16.5 13.5V14C16.5 15.3807 15.3807 16.5 14 16.5H10C8.61929 16.5 7.5 15.3807 7.5 14V13.5Z"
+      fill="currentColor"
+    />
+  </svg>
+)
+
 /**
  * Map of settings subpage IDs to their icon components.
  * Used by both AppMenu and SettingsNavigator for consistent icons.
@@ -172,4 +189,5 @@ export const SETTINGS_ICONS: Record<SettingsSubpage, React.ComponentType<IconPro
   labels: LabelsIcon,
   shortcuts: ShortcutsIcon,
   preferences: PreferencesIcon,
+  language: LanguageIcon,
 }

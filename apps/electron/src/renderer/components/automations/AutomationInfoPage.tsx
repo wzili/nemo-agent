@@ -6,6 +6,7 @@
  */
 
 import * as React from 'react'
+import { useTranslation } from 'react-i18next'
 import { PauseCircle, AlertCircle } from 'lucide-react'
 import {
   Info_Page,
@@ -51,6 +52,7 @@ export function AutomationInfoPage({
   onDelete,
   className,
 }: AutomationInfoPageProps) {
+  const { t } = useTranslation()
   const workspace = useActiveWorkspace()
   const nextRuns = automation.cron ? computeNextRuns(automation.cron) : []
 
@@ -102,19 +104,19 @@ export function AutomationInfoPage({
 
         {/* Section: When */}
         <Info_Section
-          title="When"
+          title={t('automation.when')}
           description="What causes this automation to run"
           actions={editActions}
         >
           <Info_Table>
-            <Info_Table.Row label="Event">
+            <Info_Table.Row label={t('automation.event')}>
               <Info_Badge color="default">{getEventDisplayName(automation.event)}</Info_Badge>
             </Info_Table.Row>
-            <Info_Table.Row label="Timing">
+            <Info_Table.Row label={t('automation.timing')}>
               <PhaseBadge event={automation.event} />
             </Info_Table.Row>
             {automation.matcher && (
-              <Info_Table.Row label="Only when matching">
+              <Info_Table.Row label={t('automation.onlyWhenMatching')}>
                 <code className="text-xs font-mono bg-foreground/5 px-1.5 py-0.5 rounded">
                   {automation.matcher}
                 </code>
@@ -122,14 +124,14 @@ export function AutomationInfoPage({
             )}
             {automation.cron && (
               <>
-                <Info_Table.Row label="Repeats" value={describeCron(automation.cron)} />
-                <Info_Table.Row label="Schedule expression">
+                <Info_Table.Row label={t('automation.repeats')} value={describeCron(automation.cron)} />
+                <Info_Table.Row label={t('automation.scheduleExpression')}>
                   <code className="text-xs font-mono bg-foreground/5 px-1.5 py-0.5 rounded">
                     {automation.cron}
                   </code>
                 </Info_Table.Row>
                 {nextRuns.length > 0 && (
-                  <Info_Table.Row label="Next runs">
+                  <Info_Table.Row label={t('automation.nextRunsLabel')}>
                     <div className="flex flex-col gap-0.5">
                       {(() => {
                         const spansYears = nextRuns.length > 1 && nextRuns[0].getFullYear() !== nextRuns[nextRuns.length - 1].getFullYear()
@@ -143,7 +145,7 @@ export function AutomationInfoPage({
                     </div>
                   </Info_Table.Row>
                 )}
-                <Info_Table.Row label="Timezone" value={automation.timezone || 'System default'} />
+                <Info_Table.Row label={t('automation.timezone')} value={automation.timezone || t('automation.systemDefault')} />
               </>
             )}
           </Info_Table>
@@ -151,7 +153,7 @@ export function AutomationInfoPage({
 
         {/* Section: Then */}
         <Info_Section
-          title="Then"
+          title={t('automation.then')}
           description={`${automation.actions.length} action${automation.actions.length !== 1 ? 's' : ''} to perform`}
           actions={editActions}
         >
@@ -168,16 +170,16 @@ export function AutomationInfoPage({
         )}
 
         {/* Section: Settings */}
-        <Info_Section title="Settings" actions={editActions}>
+        <Info_Section title={t('settings.preferences')} actions={editActions}>
           <Info_Table>
-            <Info_Table.Row label="Access Level" value={getPermissionDisplayName(automation.permissionMode)} />
-            <Info_Table.Row label="Status">
+            <Info_Table.Row label={t('automation.accessLevel')} value={getPermissionDisplayName(automation.permissionMode)} />
+            <Info_Table.Row label={t('common.status')}>
               <Info_Badge color={automation.enabled ? 'success' : 'muted'}>
                 {automation.enabled ? 'Active' : 'Disabled'}
               </Info_Badge>
             </Info_Table.Row>
             {automation.labels && automation.labels.length > 0 && (
-              <Info_Table.Row label="Labels">
+              <Info_Table.Row label={t('session.labels')}>
                 <div className="flex gap-1.5 flex-wrap">
                   {automation.labels.map((l) => (
                     <Info_Badge key={l} color="muted">{l}</Info_Badge>
@@ -190,14 +192,14 @@ export function AutomationInfoPage({
 
         {/* Section: Recent Activity */}
         <Info_Section
-          title="Recent Activity"
+          title={t('automation.recentActivity')}
           description={executions.length > 0 ? `Last ${executions.length} runs` : undefined}
         >
           <AutomationEventTimeline entries={executions} />
         </Info_Section>
 
         {/* Section: Raw config (JSON) */}
-        <Info_Section title="Raw config">
+        <Info_Section title={t('automation.rawConfig')}>
           <div className="rounded-[8px] shadow-minimal overflow-hidden [&_pre]:!bg-transparent [&_.relative]:!bg-transparent [&_.relative]:!border-0 [&_.relative>div:first-child]:!bg-transparent [&_.relative>div:first-child]:!border-0">
             <Info_Markdown maxHeight={300} fullscreen>
               {`\`\`\`json\n${JSON.stringify({

@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react"
+import { useTranslation } from "react-i18next"
 import { ArrowLeft } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Input } from "../ui/input"
@@ -18,6 +19,7 @@ export function AddWorkspaceStep_OpenFolder({
   onCreate,
   isCreating
 }: AddWorkspaceStep_OpenFolderProps) {
+  const { t } = useTranslation()
   const [selectedPath, setSelectedPath] = useState<string | null>(null)
   const [workspaceName, setWorkspaceName] = useState('')
 
@@ -71,7 +73,7 @@ export function AddWorkspaceStep_OpenFolder({
             {selectedPath ? (
               <p className="text-sm text-foreground truncate">{selectedPath}</p>
             ) : (
-              <p className="text-sm text-muted-foreground">No folder selected</p>
+              <p className="text-sm text-muted-foreground">{t('workspace.noFolderSelected')}</p>
             )}
           </div>
           <AddWorkspaceSecondaryButton

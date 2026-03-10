@@ -127,6 +127,9 @@ export {
   createAgent,
   detectProvider,
   getAvailableProviders,
+  // Backend runtime
+  initializeBackendHostRuntime,
+  resolveBackendHostTooling,
   // Types
   type AgentBackend,
   type AgentProvider,

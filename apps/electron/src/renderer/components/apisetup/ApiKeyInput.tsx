@@ -11,6 +11,7 @@
  */
 
 import { useState, useEffect, useCallback, useRef } from "react"
+import { useTranslation } from "react-i18next"
 import { Command as CommandPrimitive } from "cmdk"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -141,6 +142,7 @@ export function ApiKeyInput({
   providerType = 'anthropic',
   initialValues,
 }: ApiKeyInputProps) {
+  const { t } = useTranslation()
   // Get presets based on provider type
   const presets = getPresetsForProvider(providerType)
   const defaultPreset = presets[0]
@@ -354,7 +356,7 @@ export function ApiKeyInput({
       {presets.length > 1 && (
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <Label htmlFor="base-url">Endpoint</Label>
+          <Label htmlFor="base-url">{t('connection.apiEndpoint')}</Label>
           <DropdownMenu>
             <DropdownMenuTrigger
               disabled={isDisabled}
@@ -403,7 +405,7 @@ export function ApiKeyInput({
           {piModelsLoading ? (
             <div className="flex items-center gap-2 py-3 text-muted-foreground">
               <Loader2 className="size-3.5 animate-spin" />
-              <span className="text-xs">Loading models...</span>
+              <span className="text-xs">{t('common.loadingModels')}</span>
             </div>
           ) : (
             <>

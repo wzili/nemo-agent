@@ -36,6 +36,7 @@ import type { MenuItem, MenuSection, SettingsMenuItem } from "../../../shared/me
 import { SETTINGS_ICONS } from "../icons/SettingsIcons"
 import { SquarePenRounded } from "../icons/SquarePenRounded"
 import { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { BrowserTabStrip } from "../browser/BrowserTabStrip"
 import type { Workspace } from "../../../shared/types"
 import { WorkspaceSwitcher } from "./WorkspaceSwitcher"
@@ -179,6 +180,7 @@ export function TopBar({
   onAddSessionPanel,
   onAddBrowserPanel,
 }: TopBarProps) {
+  const { t } = useTranslation()
   const [isDebugMode, setIsDebugMode] = useState(false)
   const [maxVisibleBrowserBadges, setMaxVisibleBrowserBadges] = useState(3)
   const rightSlotRef = useRef<HTMLDivElement | null>(null)
@@ -321,7 +323,7 @@ export function TopBar({
                 </StyledDropdownMenuItem>
                 <StyledDropdownMenuItem onClick={onOpenKeyboardShortcuts}>
                   <Icons.Keyboard className="h-3.5 w-3.5" />
-                  Keyboard Shortcuts
+                  {t('dialog.keyboardShortcuts')}
                   {keyboardShortcutsHotkey && <DropdownMenuShortcut className="pl-6">{keyboardShortcutsHotkey}</DropdownMenuShortcut>}
                 </StyledDropdownMenuItem>
               </StyledDropdownMenuSubContent>

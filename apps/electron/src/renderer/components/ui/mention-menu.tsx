@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
 import { FadingText } from '@/components/ui/fading-text'
 import { SkillAvatar } from '@/components/ui/skill-avatar'
@@ -181,6 +182,7 @@ export function InlineMentionMenu({
   maxWidth = 280,
   className,
 }: InlineMentionMenuProps) {
+  const { t } = useTranslation()
   const menuRef = React.useRef<HTMLDivElement>(null)
   const listRef = React.useRef<HTMLDivElement>(null)
   const [selectedIndex, setSelectedIndex] = React.useState(0)
@@ -275,7 +277,7 @@ export function InlineMentionMenu({
 
       <div ref={listRef} className={MENU_LIST_STYLE}>
         {flatItems.length === 0 && filter && (
-          <div className="px-3 py-2 text-[12px] text-muted-foreground/60">No results</div>
+          <div className="px-3 py-2 text-[12px] text-muted-foreground/60">{t('common.noResults')}</div>
         )}
         {flatItems.map((item, itemIndex) => {
           const isSelected = itemIndex === selectedIndex

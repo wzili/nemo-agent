@@ -16,6 +16,7 @@
 
 import * as React from 'react'
 import { useState, useEffect, useCallback, useRef, memo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { AnimatePresence, motion, type Variants } from 'motion/react'
 import { File, Folder, FolderOpen, FileText, Image, FileCode, ChevronRight, ExternalLink } from 'lucide-react'
 import {
@@ -387,6 +388,7 @@ function FileTreeItem({
  * Section displaying session files as a tree
  */
 export function SessionFilesSection({ sessionId, className, sessionFolderPath, hideHeader = false }: SessionFilesSectionProps) {
+  const { t } = useTranslation()
   const [files, setFiles] = useState<SessionFile[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [expandedPaths, setExpandedPaths] = useState<Set<string>>(new Set())
@@ -535,7 +537,7 @@ export function SessionFilesSection({ sessionId, className, sessionFolderPath, h
       {/* Header - matches sidebar styling with select-none, extra top padding for visual balance */}
       {!hideHeader && (
         <div className="flex items-center justify-between px-4 pt-4 pb-2 shrink-0 select-none">
-          <span className="text-xs font-medium text-muted-foreground">Session Files</span>
+          <span className="text-xs font-medium text-muted-foreground">{t('session.sessionFiles')}</span>
           {sessionFolderPath && (
             <button
               type="button"

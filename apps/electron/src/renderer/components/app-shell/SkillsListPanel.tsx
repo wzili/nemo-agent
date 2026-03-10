@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Zap } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { SkillAvatar } from '@/components/ui/skill-avatar'
 import { EntityPanel } from '@/components/ui/entity-panel'
 import { EntityListEmptyScreen } from '@/components/ui/entity-list-empty'
@@ -27,6 +28,7 @@ export function SkillsListPanel({
   workspaceRootPath,
   className,
 }: SkillsListPanelProps) {
+  const { t } = useTranslation()
   return (
     <EntityPanel<LoadedSkill>
       items={skills}
@@ -38,8 +40,8 @@ export function SkillsListPanel({
       emptyState={
         <EntityListEmptyScreen
           icon={<Zap />}
-          title="No skills configured"
-          description="Skills are reusable instructions that teach your agent specialized behaviors."
+          title={t('skill.noSkills')}
+          description={t('skill.noSkillsDescription')}
           docKey="skills"
         >
           {workspaceRootPath && (
@@ -47,7 +49,7 @@ export function SkillsListPanel({
               align="center"
               trigger={
                 <button className="inline-flex items-center h-7 px-3 text-xs font-medium rounded-[8px] bg-background shadow-minimal hover:bg-foreground/[0.03] transition-colors">
-                  Add Skill
+                  {t('skill.addSkill')}
                 </button>
               }
               {...getEditConfig('add-skill', workspaceRootPath)}

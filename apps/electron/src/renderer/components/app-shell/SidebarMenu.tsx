@@ -16,6 +16,7 @@
  */
 
 import * as React from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   AppWindow,
   CheckCheck,
@@ -83,6 +84,7 @@ export function SidebarMenu({
   viewId,
   onDeleteView,
 }: SidebarMenuProps) {
+  const { t } = useTranslation()
   // Get menu components from context (works with both DropdownMenu and ContextMenu)
   const { MenuItem, Separator } = useMenuComponents()
 
@@ -91,7 +93,7 @@ export function SidebarMenu({
     return (
       <MenuItem onClick={() => window.electronAPI.openUrl('craftagents://action/new-session?window=focused')}>
         <AppWindow className="h-3.5 w-3.5" />
-        <span className="flex-1">Open in New Window</span>
+        <span className="flex-1">{t('common.openInNewWindow')}</span>
       </MenuItem>
     )
   }
@@ -104,14 +106,14 @@ export function SidebarMenu({
           <>
             <MenuItem onClick={onMarkAllRead}>
               <CheckCheck className="h-3.5 w-3.5" />
-              <span className="flex-1">Mark All Read</span>
+              <span className="flex-1">{t('session.markAllRead')}</span>
             </MenuItem>
             <Separator />
           </>
         )}
         <MenuItem onClick={onConfigureStatuses}>
           <Settings2 className="h-3.5 w-3.5" />
-          <span className="flex-1">Configure Statuses</span>
+          <span className="flex-1">{t('session.configureStatuses')}</span>
         </MenuItem>
       </>
     )
@@ -126,13 +128,13 @@ export function SidebarMenu({
         {onAddLabel && (
           <MenuItem onClick={() => onAddLabel(labelId)}>
             <Plus className="h-3.5 w-3.5" />
-            <span className="flex-1">Add New Label</span>
+            <span className="flex-1">{t('labels.addLabel')}</span>
           </MenuItem>
         )}
         {onConfigureLabels && (
           <MenuItem onClick={() => onConfigureLabels(labelId)}>
             <Settings2 className="h-3.5 w-3.5" />
-            <span className="flex-1">Edit Labels</span>
+            <span className="flex-1">{t('labels.editLabels')}</span>
           </MenuItem>
         )}
         {labelId && onDeleteLabel && (
@@ -140,7 +142,7 @@ export function SidebarMenu({
             <Separator />
             <MenuItem onClick={() => onDeleteLabel(labelId)}>
               <Trash2 className="h-3.5 w-3.5" />
-              <span className="flex-1">Delete Label</span>
+              <span className="flex-1">{t('labels.deleteLabel')}</span>
             </MenuItem>
           </>
         )}

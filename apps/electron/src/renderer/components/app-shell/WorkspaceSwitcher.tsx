@@ -4,6 +4,7 @@ import { Check, FolderPlus, ExternalLink, ChevronDown } from "lucide-react"
 import { AnimatePresence } from "motion/react"
 import { useSetAtom } from "jotai"
 import { toast } from "sonner"
+import { useTranslation } from "react-i18next"
 
 import { cn } from "@/lib/utils"
 import { fullscreenOverlayOpenAtom } from "@/atoms/overlay"
@@ -47,6 +48,7 @@ export function WorkspaceSwitcher({
   onWorkspaceCreated,
   workspaceUnreadMap,
 }: WorkspaceSwitcherProps) {
+  const { t } = useTranslation()
   const [showCreationScreen, setShowCreationScreen] = useState(false)
   const setFullscreenOverlayOpen = useSetAtom(fullscreenOverlayOpenAtom)
   const selectedWorkspace = workspaces.find(w => w.id === activeWorkspaceId)
@@ -65,7 +67,7 @@ export function WorkspaceSwitcher({
   const handleWorkspaceCreated = (workspace: Workspace) => {
     setShowCreationScreen(false)
     setFullscreenOverlayOpen(false)
-    toast.success(`Created workspace "${workspace.name}"`)
+    toast.success(t('workspace.createdWorkspace', { name: workspace.name }))
     onWorkspaceCreated?.(workspace)
     onSelect(workspace.id)
   }
@@ -93,7 +95,7 @@ export function WorkspaceSwitcher({
             <button
               type="button"
               className="titlebar-no-drag ml-1 flex-1 min-w-0 flex items-center justify-start gap-0.5 h-[30px] px-3 rounded-[8px] border border-foreground/6 text-[13px] text-foreground/50 hover:bg-foreground/5 hover:text-foreground transition-colors cursor-pointer data-[state=open]:bg-foreground/5 data-[state=open]:text-foreground"
-              aria-label="Select workspace"
+              aria-label={t('workspace.selectWorkspace')}
             >
               <CrossfadeAvatar
                 src={selectedWorkspace ? workspaceIconMap.get(selectedWorkspace.id) : undefined}
@@ -102,7 +104,7 @@ export function WorkspaceSwitcher({
                 fallbackClassName="bg-muted text-[10px] rounded-full"
                 fallback={selectedWorkspace?.name?.charAt(0) || 'W'}
               />
-              <span className="truncate min-w-0 flex-1 text-left">{selectedWorkspace?.name || 'Workspace'}</span>
+              <span className="truncate min-w-0 flex-1 text-left">{selectedWorkspace?.name || t('workspace.workspace')}</span>
               <ChevronDown className="h-3 w-3 opacity-60 shrink-0" />
               {hasUnreadInOtherWorkspaces && <span className="h-2 w-2 rounded-full bg-accent shrink-0" />}
             </button>
@@ -114,7 +116,7 @@ export function WorkspaceSwitcher({
                 "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
                 isCollapsed && "h-9 w-9 shrink-0 justify-center p-0"
               )}
-              aria-label="Select workspace"
+              aria-label={t('workspace.selectWorkspace')}
             >
               <CrossfadeAvatar
                 src={selectedWorkspace ? workspaceIconMap.get(selectedWorkspace.id) : undefined}
@@ -126,7 +128,7 @@ export function WorkspaceSwitcher({
               {!isCollapsed && (
                 <>
                   <FadingText className="ml-1 font-sans min-w-0 text-sm" fadeWidth={36}>
-                    {selectedWorkspace?.name || 'Select workspace'}
+                    {selectedWorkspace?.name || t('workspace.selectWorkspace')}
                   </FadingText>
                   <ChevronDown className="h-3 w-3 opacity-50 shrink-0" />
                 </>
@@ -173,7 +175,7 @@ export function WorkspaceSwitcher({
                       e.stopPropagation()
                       onSelect(workspace.id, true)
                     }}
-                    title="Open in new window"
+                    title={t('workspace.openInNewWindow')}
                   >
                     <ExternalLink className="h-3.5 w-3.5" />
                   </button>
@@ -192,7 +194,7 @@ export function WorkspaceSwitcher({
             className="font-sans"
           >
             <FolderPlus className="h-4 w-4" />
-            Add Workspace...
+            {t('workspace.addWorkspace')}
           </StyledDropdownMenuItem>
         </StyledDropdownMenuContent>
       </DropdownMenu>

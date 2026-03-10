@@ -209,7 +209,11 @@ export function registerSystemCoreHandlers(server: RpcServer, deps: HandlerDeps)
 
       // Handle craftagents:// URLs internally via deep link handler (GUI only)
       if (parsed.protocol === 'craftagents:') {
-        if (!windowManager) return
+        deps.platform.logger.info('[OPEN_URL] windowManager exists:', !!windowManager)
+        if (!windowManager) {
+          deps.platform.logger.error('[OPEN_URL] windowManager is null, cannot handle deep link')
+          return
+        }
         deps.platform.logger.info('[OPEN_URL] Handling as deep link')
         const { handleDeepLink } = await import('../deep-link')
         const resolver = (wcId: number) => windowManager.getClientIdForWindow(wcId)

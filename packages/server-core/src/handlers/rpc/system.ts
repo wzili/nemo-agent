@@ -34,6 +34,7 @@ export const CORE_HANDLED_CHANNELS = [
 
 export function registerSystemCoreHandlers(server: RpcServer, deps: HandlerDeps): void {
   const windowManager = deps.windowManager
+  const handleDeepLink = deps.handleDeepLink
 
   // Get system theme preference (dark = true, light = false)
   server.handle(RPC_CHANNELS.theme.GET_SYSTEM_PREFERENCE, async () => {
@@ -176,6 +177,15 @@ export function registerSystemCoreHandlers(server: RpcServer, deps: HandlerDeps)
 
       // craftagents:// URLs require the GUI deep-link handler (Electron only)
       if (parsed.protocol === 'craftagents:') {
+        // If handleDeepLink is provided (Electron GUI mode), use it
+        if (handleDeepLink && windowManager) {
+          const result = await handleDeepLink(url, windowManager, server.push.bind(server), deps.resolveClientId, ctx.clientId)
+          if (!result.success) {
+            throw new Error(result.error || 'Failed to handle deep link')
+          }
+          return
+        }
+        // Otherwise skip (headless mode)
         deps.platform.logger.info('[OPEN_URL] craftagents:// URLs require GUI deep-link handler — skipping in core')
         return
       }

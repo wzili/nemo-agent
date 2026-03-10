@@ -1,5 +1,6 @@
 import * as React from "react"
 import { useEffect, useState, useMemo, useCallback } from "react"
+import { useTranslation } from 'react-i18next'
 import {
   AlertTriangle,
   CheckCircle2,
@@ -429,6 +430,13 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
   // Connection unavailable
   connectionUnavailable = false,
 }, ref) {
+  // Translation hook
+  const { t } = useTranslation()
+
+  // Default placeholder using translation
+  const defaultPlaceholder = t('placeholders.messageInput')
+  const effectivePlaceholder = placeholder || defaultPlaceholder
+
   // Panel focus state (for multi-panel auto-scroll behavior)
   const appShellContext = useAppShellContext()
   const isFocusedPanel = appShellContext?.isFocusedPanel ?? true
@@ -1641,7 +1649,7 @@ export const ChatDisplay = React.forwardRef<ChatDisplayHandle, ChatDisplayProps>
             )}
             <InputContainer
               compactMode={compactMode}
-              placeholder={placeholder}
+              placeholder={effectivePlaceholder}
               disabled={isInputDisabled}
               isProcessing={session.isProcessing}
               onAnimatedHeightChange={handleAnimatedHeightChange}

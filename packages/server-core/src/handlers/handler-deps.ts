@@ -5,6 +5,13 @@ import type { IBrowserPaneManager } from './browser-pane-manager-interface'
 import type { IWindowManager } from './window-manager-interface'
 
 /**
+ * Deep link handler function type.
+ * Provided by Electron GUI to handle craftagents:// URLs.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type DeepLinkHandler = (url: string, windowManager: any, sink?: any, resolveClientId?: any, preferredClientId?: string) => Promise<{ success: boolean; error?: string; windowId?: number }>
+
+/**
  * Generic handler dependency bag.
  * Concrete hosts specialize these generics to their runtime implementations.
  *
@@ -25,4 +32,9 @@ export interface HandlerDeps<
   windowManager?: TWindowManager
   browserPaneManager?: TBrowserPaneManager
   oauthFlowStore: TOAuthFlowStore
+  /** Optional deep link handler for craftagents:// URLs (Electron GUI only) */
+  handleDeepLink?: DeepLinkHandler
+  /** Optional client ID resolver for deep link navigation (Electron GUI only) */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  resolveClientId?: (webContentsId: number) => string | undefined
 }

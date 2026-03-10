@@ -17,6 +17,7 @@ import {
   Power,
   PowerOff,
 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { useMenuComponents } from '@/components/ui/menu-context'
 
 export interface AutomationMenuProps {
@@ -40,6 +41,7 @@ export function AutomationMenu({
   onEditJson,
   onDelete,
 }: AutomationMenuProps) {
+  const { t } = useTranslation()
   const { MenuItem, Separator } = useMenuComponents()
 
   return (
@@ -60,7 +62,7 @@ export function AutomationMenu({
       {onTest && (
         <MenuItem onClick={onTest}>
           <Play className="h-3.5 w-3.5" />
-          <span className="flex-1">Run Test</span>
+          <span className="flex-1">{t('automation.runTest')}</span>
         </MenuItem>
       )}
 
@@ -68,7 +70,7 @@ export function AutomationMenu({
       {onDuplicate && (
         <MenuItem onClick={onDuplicate}>
           <Copy className="h-3.5 w-3.5" />
-          <span className="flex-1">Duplicate</span>
+          <span className="flex-1">{t('common.duplicate')}</span>
         </MenuItem>
       )}
 
@@ -76,7 +78,7 @@ export function AutomationMenu({
       {onEditJson && (
         <MenuItem onClick={onEditJson}>
           <FileCode className="h-3.5 w-3.5" />
-          <span className="flex-1">Edit Configuration</span>
+          <span className="flex-1">{t('automation.editConfiguration')}</span>
         </MenuItem>
       )}
 
@@ -86,7 +88,7 @@ export function AutomationMenu({
       {onDelete && (
         <MenuItem onClick={onDelete} variant="destructive">
           <Trash2 className="h-3.5 w-3.5" />
-          <span className="flex-1">Delete</span>
+          <span className="flex-1">{t('common.delete')}</span>
         </MenuItem>
       )}
     </>

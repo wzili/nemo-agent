@@ -7,6 +7,7 @@
 
 import * as React from 'react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { ChevronDown, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { AutomationAvatar } from './AutomationAvatar'
@@ -29,6 +30,7 @@ export function AutomationCard({
   onTest,
   className,
 }: AutomationCardProps) {
+  const { t } = useTranslation()
   const [expanded, setExpanded] = useState(defaultExpanded)
 
   return (
@@ -74,7 +76,7 @@ export function AutomationCard({
         <div className="border-t border-border/30 px-4 py-3 space-y-3">
           {/* Trigger info */}
           <div className="space-y-1">
-            <h5 className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">When</h5>
+            <h5 className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">{t('automation.trigger')}</h5>
             <div className="text-xs text-foreground/70">
               <span className="font-medium">{getEventDisplayName(automation.event)}</span>
               {automation.matcher && (
@@ -92,7 +94,7 @@ export function AutomationCard({
 
           {/* Actions */}
           <div className="space-y-1">
-            <h5 className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Then</h5>
+            <h5 className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">{t('automation.action')}</h5>
             <AutomationActionPreview actions={automation.actions} />
           </div>
 

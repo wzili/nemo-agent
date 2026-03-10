@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { DatabaseZap } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { SourceAvatar } from '@/components/ui/source-avatar'
 import { deriveConnectionStatus } from '@/components/ui/source-status-indicator'
 import { EntityPanel } from '@/components/ui/entity-panel'
@@ -24,12 +25,6 @@ const SOURCE_STATUS_CONFIG: Record<string, { label: string; colorClass: string }
   local_disabled: { label: 'Disabled', colorClass: 'bg-foreground/10 text-foreground/50' },
 }
 
-const SOURCE_TYPE_FILTER_LABELS: Record<string, string> = {
-  api: 'API',
-  mcp: 'MCP',
-  local: 'local folder',
-}
-
 export interface SourcesListPanelProps {
   sources: LoadedSource[]
   sourceFilter?: SourceFilter | null
@@ -51,6 +46,7 @@ export function SourcesListPanel({
   localMcpEnabled = true,
   className,
 }: SourcesListPanelProps) {
+  const { t } = useTranslation()
   const filteredSources = React.useMemo(() => {
     if (!sourceFilter) return sources
     return sources.filter(s => s.config.type === sourceFilter.sourceType)
@@ -58,10 +54,14 @@ export function SourcesListPanel({
 
   const emptyMessage = React.useMemo(() => {
     if (sourceFilter?.kind === 'type') {
-      return `No ${SOURCE_TYPE_FILTER_LABELS[sourceFilter.sourceType] ?? sourceFilter.sourceType} sources configured.`
+      const sourceType = sourceFilter.sourceType
+      if (sourceType === 'api') return t('source.noApiSourcesConfigured')
+      if (sourceType === 'mcp') return t('source.noMcpSourcesConfigured')
+      if (sourceType === 'local') return t('source.noLocalSourcesConfigured')
+      return t('source.noSources')
     }
-    return 'No sources configured.'
-  }, [sourceFilter])
+    return t('source.noSources')
+  }, [sourceFilter, t])
 
   return (
     <EntityPanel<LoadedSource>
@@ -75,7 +75,7 @@ export function SourcesListPanel({
         <EntityListEmptyScreen
           icon={<DatabaseZap />}
           title={emptyMessage}
-          description="Sources connect your agent to external data — MCP servers, REST APIs, and local folders."
+          description={t('source.noSourcesDescription')}
           docKey="sources"
         >
           {workspaceRootPath && (
@@ -83,7 +83,7 @@ export function SourcesListPanel({
               align="center"
               trigger={
                 <button className="inline-flex items-center h-7 px-3 text-xs font-medium rounded-[8px] bg-background shadow-minimal hover:bg-foreground/[0.03] transition-colors">
-                  Add Source
+                  {t('source.addSource')}
                 </button>
               }
               {...getEditConfig(
