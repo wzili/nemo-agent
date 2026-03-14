@@ -53,12 +53,12 @@ export function AddWorkspaceStep_OpenFolder({
         )}
       >
         <ArrowLeft className="h-4 w-4" />
-        Back
+        {t('common.back')}
       </button>
 
       <AddWorkspaceStepHeader
-        title="Choose existing folder"
-        description="Choose any folder to use as workspace."
+        title={t('workspace.chooseExistingFolder')}
+        description={t('workspace.chooseExistingFolderDescription')}
       />
 
       <div className="mt-6 w-full space-y-6">
@@ -88,12 +88,12 @@ export function AddWorkspaceStep_OpenFolder({
         {selectedPath && (
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">
-              Workspace name
+              {t('common.workspaceName')}
             </label>
             <Input
               value={workspaceName}
               onChange={(e) => setWorkspaceName(e.target.value)}
-              placeholder="My Workspace"
+              placeholder={t('workspace.myWorkspace')}
               disabled={isCreating}
             />
           </div>
@@ -104,9 +104,9 @@ export function AddWorkspaceStep_OpenFolder({
           onClick={handleOpen}
           disabled={!canOpen || isCreating}
           loading={isCreating}
-          loadingText="Opening..."
+          loadingText={t('workspace.opening')}
         >
-          Open
+          {t('menu.open')}
         </AddWorkspacePrimaryButton>
       </div>
     </AddWorkspaceContainer>

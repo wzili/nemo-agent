@@ -11,6 +11,7 @@
 
 import * as React from 'react'
 import { useState, useEffect, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { PanelHeader } from '@/components/app-shell/PanelHeader'
 import { Separator } from '@/components/ui/separator'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -115,6 +116,7 @@ function FormField({
 }
 
 export default function PreferencesPage() {
+  const { t } = useTranslation()
   const [formState, setFormState] = useState<PreferencesFormState>(emptyFormState)
   const [originalState, setOriginalState] = useState<PreferencesFormState>(emptyFormState)
   const [isLoading, setIsLoading] = useState(true)
@@ -222,47 +224,47 @@ export default function PreferencesPage() {
 
   return (
     <div className="h-full flex flex-col">
-      <PanelHeader title="Preferences" actions={headerActions} />
+      <PanelHeader title={t('settings.preferences')} actions={headerActions} />
       <Separator />
       <ScrollArea className="flex-1">
         <div className="p-4 space-y-6">
           {/* Basic Info */}
           <section>
-            <SectionHeader>Basic Info</SectionHeader>
+            <SectionHeader>{t('preferencesPage.basicInfo')}</SectionHeader>
             <div className="space-y-1">
               <FormField
-                label="Name"
+                label={t('preferencesPage.name')}
                 value={formState.name}
                 onChange={(v) => updateField('name', v)}
-                placeholder="Your name"
+                placeholder={t('preferencesPage.yourNamePlaceholder')}
               />
               <FormField
-                label="Timezone"
+                label={t('preferencesPage.timezone')}
                 value={formState.timezone}
                 onChange={(v) => updateField('timezone', v)}
-                placeholder="e.g., America/New_York"
+                placeholder={t('placeholders.timezone')}
               />
               <FormField
-                label="Language"
+                label={t('preferencesPage.language')}
                 value={formState.language}
                 onChange={(v) => updateField('language', v)}
-                placeholder="e.g., English"
+                placeholder={t('placeholders.languageCode')}
               />
             </div>
           </section>
 
           {/* Location */}
           <section>
-            <SectionHeader>Location</SectionHeader>
+            <SectionHeader>{t('preferencesPage.location')}</SectionHeader>
             <div className="space-y-1">
               <FormField
-                label="City"
+                label={t('preferencesPage.city')}
                 value={formState.city}
                 onChange={(v) => updateField('city', v)}
                 placeholder="e.g., New York"
               />
               <FormField
-                label="Country"
+                label={t('preferencesPage.country')}
                 value={formState.country}
                 onChange={(v) => updateField('country', v)}
                 placeholder="e.g., USA"
@@ -272,11 +274,11 @@ export default function PreferencesPage() {
 
           {/* Notes */}
           <section>
-            <SectionHeader>Notes</SectionHeader>
+            <SectionHeader>{t('preferencesPage.notes')}</SectionHeader>
             <Textarea
               value={formState.notes}
               onChange={(e) => updateField('notes', e.target.value)}
-              placeholder="Any additional information you'd like to share with the AI assistant..."
+              placeholder={t('preferencesPage.notesPlaceholder')}
               className="min-h-[120px] text-sm resize-y"
             />
           </section>

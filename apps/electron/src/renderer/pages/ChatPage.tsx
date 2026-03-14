@@ -578,11 +578,11 @@ const ChatPage = React.memo(function ChatPage({ sessionId }: ChatPageProps) {
           <RenameDialog
             open={renameDialogOpen}
             onOpenChange={setRenameDialogOpen}
-            title="Rename Session"
+            title={t('session.renameSession')}
             value={renameName}
             onValueChange={setRenameName}
             onSubmit={handleRenameSubmit}
-            placeholder="Enter session name..."
+            placeholder={t('session.enterSessionName')}
           />
         </>
       )
@@ -591,10 +591,10 @@ const ChatPage = React.memo(function ChatPage({ sessionId }: ChatPageProps) {
     // Session truly doesn't exist
     return (
       <div className="h-full flex flex-col">
-        <PanelHeader  title="Session" rightSidebarButton={rightSidebarButton} />
+        <PanelHeader  title={t('session.session')} rightSidebarButton={rightSidebarButton} />
         <div className="flex-1 flex flex-col items-center justify-center gap-3 text-muted-foreground">
           <AlertCircle className="h-10 w-10" />
-          <p className="text-sm">This session no longer exists</p>
+          <p className="text-sm">{t('session.sessionNoLongerExists')}</p>
         </div>
       </div>
     )
@@ -651,11 +651,11 @@ const ChatPage = React.memo(function ChatPage({ sessionId }: ChatPageProps) {
       <RenameDialog
         open={renameDialogOpen}
         onOpenChange={setRenameDialogOpen}
-        title="Rename Session"
+        title={t('session.renameSession')}
         value={renameName}
         onValueChange={setRenameName}
         onSubmit={handleRenameSubmit}
-        placeholder="Enter session name..."
+        placeholder={t('session.enterSessionName')}
       />
     </>
   )

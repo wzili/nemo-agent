@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useTranslation } from 'react-i18next'
 import { Command as CommandPrimitive } from 'cmdk'
 import { toast } from 'sonner'
 import {
@@ -257,6 +258,8 @@ export function FreeFormInput({
   const appShellCtx = useOptionalAppShellContext()
   const llmConnections = appShellCtx?.llmConnections ?? []
   const workspaceDefaultConnection = appShellCtx?.workspaceDefaultLlmConnection
+
+  const { t } = useTranslation()
 
   // Derive connectionDefaultModel per-session from the effective connection.
   // Only non-null for compat providers (custom endpoints with fixed models).
@@ -1901,6 +1904,7 @@ function WorkingDirectoryBadge({
   sessionFolderPath?: string
   isEmptySession?: boolean
 }) {
+  const { t } = useTranslation()
   const [recentDirs, setRecentDirs] = React.useState<string[]>([])
   const [popoverOpen, setPopoverOpen] = React.useState(false)
   const [homeDir, setHomeDir] = React.useState<string>('')
@@ -2001,11 +2005,11 @@ function WorkingDirectoryBadge({
             tooltip={
               hasFolder ? (
                 <span className="flex flex-col gap-0.5">
-                  <span className="font-medium">Working directory</span>
+                  <span className="font-medium">{t('placeholders.workingDirectory')}</span>
                   <span className="text-xs opacity-70">{formatPathForDisplay(workingDirectory, homeDir)}</span>
                   {gitBranch && <span className="text-xs opacity-70">on {gitBranch}</span>}
                 </span>
-              ) : "Choose working directory"
+              ) : t('placeholders.chooseWorkingDirectory')
             }
           />
         </span>
@@ -2019,7 +2023,7 @@ function WorkingDirectoryBadge({
                 ref={inputRef}
                 value={filter}
                 onValueChange={setFilter}
-                placeholder="Filter folders..."
+                placeholder={t('placeholders.filterFolders')}
                 className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground/50 placeholder:select-none"
               />
             </div>

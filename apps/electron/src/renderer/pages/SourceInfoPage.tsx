@@ -7,6 +7,7 @@
 
 import * as React from 'react'
 import { useEffect, useState, useMemo, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { AlertCircle } from 'lucide-react'
 import { EditPopover, EditButton, getEditConfig } from '@/components/ui/EditPopover'
 import { SourceAvatar } from '@/components/ui/source-avatar'
@@ -168,6 +169,7 @@ function getPermissionsDescription(source: LoadedSource): string {
 }
 
 export default function SourceInfoPage({ sourceSlug, workspaceId, onDelete }: SourceInfoPageProps) {
+  const { t } = useTranslation()
   const { navigateToSource } = useNavigation()
   const [source, setSource] = useState<LoadedSource | null>(null)
   const [loading, setLoading] = useState(true)
@@ -396,7 +398,7 @@ export default function SourceInfoPage({ sourceSlug, workspaceId, onDelete }: So
 
           {/* Connection */}
           <Info_Section
-            title="Connection"
+            title={t('source.connection')}
             description={getConnectionDescription(source)}
             actions={
               // EditPopover for AI-assisted config.json editing with "Edit File" as secondary action
@@ -438,7 +440,7 @@ export default function SourceInfoPage({ sourceSlug, workspaceId, onDelete }: So
           {/* Permissions - for API and local sources */}
           {source.config.type !== 'mcp' && permissionsConfig && apiPermissionsData.length > 0 && (
             <Info_Section
-              title="Permissions"
+              title={t('source.permissions')}
               description={getPermissionsDescription(source)}
               actions={
                 // EditPopover for AI-assisted permissions.json editing
@@ -459,7 +461,7 @@ export default function SourceInfoPage({ sourceSlug, workspaceId, onDelete }: So
           {/* Tools - for MCP sources */}
           {source.config.type === 'mcp' && (
             <Info_Section
-              title="Tools"
+              title={t('source.tools')}
               description="Operations exposed by this server."
               actions={
                 // EditPopover for AI-assisted tool permissions editing
@@ -484,7 +486,7 @@ export default function SourceInfoPage({ sourceSlug, workspaceId, onDelete }: So
           {/* Permissions - for MCP sources */}
           {source.config.type === 'mcp' && permissionsConfig && mcpPermissionsData.length > 0 && (
             <Info_Section
-              title="Permissions"
+              title={t('source.permissions')}
               description={getPermissionsDescription(source)}
               actions={
                 // EditPopover for AI-assisted permissions.json editing
@@ -505,7 +507,7 @@ export default function SourceInfoPage({ sourceSlug, workspaceId, onDelete }: So
           {/* Documentation */}
           {source.guide?.raw && (
             <Info_Section
-              title="Documentation"
+              title={t('source.documentation')}
               description="Context and guidelines for the agent."
               actions={
                 // EditPopover for AI-assisted guide.md editing with "Edit File" as secondary action

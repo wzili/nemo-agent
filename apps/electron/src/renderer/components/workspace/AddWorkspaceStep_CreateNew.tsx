@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react"
+import { useTranslation } from 'react-i18next'
 import { ArrowLeft } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { slugify } from "@/lib/slugify"
@@ -27,6 +28,7 @@ export function AddWorkspaceStep_CreateNew({
   onCreate,
   isCreating
 }: AddWorkspaceStep_CreateNewProps) {
+  const { t } = useTranslation()
   const [name, setName] = useState('')
   const [locationOption, setLocationOption] = useState<LocationOption>('default')
   const [customPath, setCustomPath] = useState<string | null>(null)
@@ -102,25 +104,25 @@ export function AddWorkspaceStep_CreateNew({
         )}
       >
         <ArrowLeft className="h-4 w-4" />
-        Back
+        {t('common.back')}
       </button>
 
       <AddWorkspaceStepHeader
-        title="Create workspace"
-        description="Enter a name and choose where to store your workspace."
+        title={t('workspace.createNew')}
+        description={t('workspace.createNewDescription')}
       />
 
       <div className="mt-6 w-full space-y-6">
         {/* Workspace name */}
         <div className="space-y-2">
           <label className="block text-sm font-medium text-foreground mb-2.5">
-            Workspace name
+            {t('common.workspaceName')}
           </label>
           <div className="bg-background shadow-minimal rounded-lg">
             <Input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="My Workspace"
+              placeholder={t('workspace.myWorkspace')}
               disabled={isCreating}
               autoFocus
               className="border-0 bg-transparent shadow-none"
@@ -134,7 +136,7 @@ export function AddWorkspaceStep_CreateNew({
         {/* Location selection */}
         <div className="space-y-3">
           <label className="block text-sm font-medium text-foreground mb-2.5">
-            Location
+            {t('common.location')}
           </label>
 
           {/* Default location option */}
@@ -143,8 +145,8 @@ export function AddWorkspaceStep_CreateNew({
             checked={locationOption === 'default'}
             onChange={() => setLocationOption('default')}
             disabled={isCreating}
-            title="Default location"
-            subtitle="under .craft-agent folder"
+            title={t('workspace.defaultLocation')}
+            subtitle={t('workspace.underCraftAgentFolder')}
           />
 
           {/* Custom location option */}
@@ -153,8 +155,8 @@ export function AddWorkspaceStep_CreateNew({
             checked={locationOption === 'custom'}
             onChange={() => setLocationOption('custom')}
             disabled={isCreating}
-            title="Choose a location"
-            subtitle={customPath || "Pick a place to put your new workspace."}
+            title={t('workspace.chooseLocation')}
+            subtitle={customPath || t('workspace.pickPlace')}
             action={locationOption === 'custom' ? (
               <AddWorkspaceSecondaryButton
                 onClick={(e) => {
@@ -163,7 +165,7 @@ export function AddWorkspaceStep_CreateNew({
                 }}
                 disabled={isCreating}
               >
-                Browse
+                {t('common.browse')}
               </AddWorkspaceSecondaryButton>
             ) : undefined}
           />
@@ -174,9 +176,9 @@ export function AddWorkspaceStep_CreateNew({
           onClick={handleCreate}
           disabled={!canCreate}
           loading={isCreating}
-          loadingText="Creating..."
+          loadingText={t('workspace.creating')}
         >
-          Create
+          {t('common.create')}
         </AddWorkspacePrimaryButton>
       </div>
     </AddWorkspaceContainer>

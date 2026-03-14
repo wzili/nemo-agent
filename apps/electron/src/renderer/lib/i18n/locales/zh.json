@@ -11,6 +11,10 @@
     "back": "返回",
     "next": "下一步",
     "done": "完成",
+    "create": "创建",
+    "browse": "浏览",
+    "location": "位置",
+    "workspaceName": "工作区名称",
     "retry": "重试",
     "refresh": "刷新",
     "loading": "加载中...",
@@ -101,6 +105,18 @@
     "language": "语言",
     "languageDesc": "语言和区域设置"
   },
+  "preferencesPage": {
+    "basicInfo": "基本信息",
+    "name": "名字",
+    "timezone": "时区",
+    "language": "语言",
+    "location": "位置",
+    "city": "城市",
+    "country": "国家",
+    "notes": "备注",
+    "notesPlaceholder": "想与 AI 助手分享的任何其他信息...",
+    "yourNamePlaceholder": "你的名字"
+  },
   "dialog": {
     "resetApp": "重置应用",
     "resetAppConfirm": "这将永久删除所有数据并将应用重置为初始状态。",
@@ -168,7 +184,20 @@
     "sessionArchived": "1 个会话已归档",
     "sessionDeleted": "1 个会话已删除",
     "sessionFiles": "会话文件",
-    "selectConversation": "选择一个对话以开始"
+    "selectConversation": "选择一个对话以开始",
+    "sessionNoLongerExists": "此会话已不存在",
+    "session": "会话"
+  },
+  "toast": {
+    "sessionFlagged": "会话已标记",
+    "sessionFlaggedDescription": "已添加到标记项目",
+    "flagRemoved": "标记已移除",
+    "flagRemovedDescription": "已从标记项目移除",
+    "sessionArchived": "会话已归档",
+    "sessionArchivedDescription": "已移至归档",
+    "sessionRestored": "会话已恢复",
+    "sessionRestoredDescription": "已从归档移回",
+    "sessionDeleted": "会话已删除"
   },
   "workspace": {
     "renameWorkspace": "重命名工作区",
@@ -181,7 +210,24 @@
     "workspace": "工作区",
     "createdWorkspace": "已创建工作区「{{name}}」",
     "openInNewWindow": "在新窗口中打开",
-    "noFolderSelected": "未选择文件夹"
+    "noFolderSelected": "未选择文件夹",
+    "createNew": "创建工作区",
+    "createNewDescription": "输入名称并选择工作区存储位置。",
+    "myWorkspace": "我的工作区",
+    "defaultLocation": "默认位置",
+    "chooseLocation": "选择位置",
+    "pickPlace": "选择放置新工作区的位置。",
+    "creating": "创建中...",
+    "underCraftAgentFolder": "在 .craft-agent 文件夹下",
+    "addWorkspaceTitle": "添加工作区",
+    "addWorkspaceDescription": "在这里你的想法将通过工具变成现实。",
+    "createNewOption": "创建新工作区",
+    "createNewOptionDescription": "从空白工作区开始。",
+    "openFolder": "打开文件夹",
+    "openFolderDescription": "选择现有文件夹作为工作区。",
+    "chooseExistingFolder": "选择现有文件夹",
+    "chooseExistingFolderDescription": "选择任意文件夹作为工作区。",
+    "opening": "打开中..."
   },
   "nav": {
     "allSessions": "全部会话",
@@ -298,11 +344,26 @@
     "settingUp": "正在设置...",
     "apiSetup": "API 设置",
     "selectProvider": "选择提供商",
+    "welcomeToCraftAgents": "欢迎使用 Craft Agents",
+    "howWouldYouLikeToConnect": "您想如何连接？",
     "enterApiKey": "输入 API 密钥",
     "selectModel": "选择模型",
     "continue": "继续",
     "skip": "跳过",
-    "retry": "重试"
+    "retry": "重试",
+    "connectChatGPT": "连接 ChatGPT",
+    "connectChatGPTDescription": "使用您的 ChatGPT 订阅为 Craft Agents 提供支持。",
+    "connecting": "连接中...",
+    "connectGitHubCopilot": "连接 GitHub Copilot",
+    "connectGitHubCopilotDescription": "使用您的 GitHub Copilot 订阅为 Craft Agents 提供支持。",
+    "waitingForAuthorization": "等待授权...",
+    "enterAuthorizationCode": "输入授权码",
+    "enterAuthorizationCodeDescription": "从浏览器页面复制代码并粘贴到下方。",
+    "connectClaudeAccount": "连接 Claude 账户",
+    "connectClaudeAccountDescription": "使用您的 Claude 订阅为多智能体工作流提供支持。",
+    "selectProviderPreset": "选择提供商预设并输入 API 密钥。对于任意 Anthropic 兼容端点，请使用 Anthropic API 密钥模式。",
+    "enterApiKeyOptional": "输入您的 API 密钥。可选择配置自定义端点用于 OpenRouter、Ollama 或兼容 API。",
+    "validating": "验证中..."
   },
   "automation": {
     "automation": "自动化",
@@ -363,7 +424,14 @@
     "localFolder": "本地文件夹",
     "noApiSourcesConfigured": "暂无配置的 API 数据源。",
     "noMcpSourcesConfigured": "暂无配置的 MCP 数据源。",
-    "noLocalSourcesConfigured": "暂无配置的本地数据源。"
+    "noLocalSourcesConfigured": "暂无配置的本地数据源。",
+    "connection": "连接",
+    "permissions": "权限",
+    "tools": "工具",
+    "documentation": "文档",
+    "type": "类型",
+    "url": "网址",
+    "lastTested": "上次测试"
   },
   "skill": {
     "skills": "技能",
@@ -389,12 +457,17 @@
     "describeChange": "描述你想要更改的内容...",
     "searchModels": "搜索模型...",
     "filterStatuses": "筛选状态...",
+    "filterFolders": "筛选文件夹...",
     "yourName": "你的名字",
     "timezone": "例如：Asia/Shanghai",
     "languageCode": "例如：中文",
     "localEndpoint": "例如：http://localhost:11434",
     "modelName": "例如：qwen3-coder, llama3.3",
-    "messageInput": "输入消息..."
+    "messageInput": "输入消息...",
+    "workingDirectory": "工作目录",
+    "chooseWorkingDirectory": "选择工作目录",
+    "useDefault": "使用默认",
+    "inheritFromAppSettings": "继承应用设置"
   },
   "fileViewer": {
     "noFileSelected": "未选择文件",

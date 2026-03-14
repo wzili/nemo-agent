@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { cn } from "@/lib/utils"
 import { Key, Monitor } from "lucide-react"
 import { CraftAgentsSymbol } from "@/components/icons/CraftAgentsSymbol"
@@ -65,6 +66,7 @@ interface ProviderSelectStepProps {
  * Selecting a card immediately advances to the next step.
  */
 export function ProviderSelectStep({ onSelect }: ProviderSelectStepProps) {
+  const { t } = useTranslation()
   return (
     <StepFormLayout
       iconElement={
@@ -72,8 +74,8 @@ export function ProviderSelectStep({ onSelect }: ProviderSelectStepProps) {
           <CraftAgentsSymbol className="size-10 text-accent" />
         </div>
       }
-      title="Welcome to Craft Agents"
-      description="How would you like to connect?"
+      title={t('onboarding.welcomeToCraftAgents')}
+      description={t('onboarding.howWouldYouLikeToConnect')}
     >
       <div className="space-y-3">
         {PROVIDER_OPTIONS.map((option) => (

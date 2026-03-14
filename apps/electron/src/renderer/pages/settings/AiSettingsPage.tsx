@@ -327,6 +327,7 @@ interface WorkspaceOverrideCardProps {
 }
 
 function WorkspaceOverrideCard({ workspace, llmConnections, onSettingsChange }: WorkspaceOverrideCardProps) {
+  const { t } = useTranslation()
   const [isExpanded, setIsExpanded] = useState(false)
   const [settings, setSettings] = useState<WorkspaceSettings | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -461,38 +462,38 @@ function WorkspaceOverrideCard({ workspace, llmConnections, onSettingsChange }: 
           >
             <div className="border-t border-border/50 px-4 py-2">
               <SettingsMenuSelectRow
-                label="Connection"
-                description="API connection for new chats"
+                label={t('ai.connection')}
+                description={t('ai.connectionDescription')}
                 value={currentConnection}
                 onValueChange={handleConnectionChange}
                 options={[
-                  { value: 'global', label: 'Use default', description: 'Inherit from app settings' },
+                  { value: 'global', label: t('placeholders.useDefault'), description: t('placeholders.inheritFromAppSettings') },
                   ...llmConnections.map((conn) => ({
                     value: conn.slug,
                     label: conn.name,
-                    description: conn.providerType === 'anthropic' ? 'Anthropic' :
-                                 conn.providerType === 'pi' ? 'Craft Agents Backend' :
-                                 conn.providerType || 'Unknown',
+                    description: conn.providerType === 'anthropic' ? t('connection.anthropic') :
+                                 conn.providerType === 'pi' ? t('connection.craftBackend') :
+                                 conn.providerType || t('errors.unknown'),
                   })),
                 ]}
               />
               <SettingsMenuSelectRow
-                label="Model"
-                description="AI model for new chats"
+                label={t('connection.model')}
+                description={t('ai.modelDescription')}
                 value={currentModel}
                 onValueChange={handleModelChange}
                 options={[
-                  { value: 'global', label: 'Use default', description: 'Inherit from app settings' },
+                  { value: 'global', label: t('placeholders.useDefault'), description: t('placeholders.inheritFromAppSettings') },
                   ...getModelOptionsForConnection(workspaceEffectiveConnection),
                 ]}
               />
               <SettingsMenuSelectRow
-                label="Thinking"
-                description="Reasoning depth for new chats"
+                label={t('ai.thinking')}
+                description={t('ai.thinkingDescription')}
                 value={currentThinking}
                 onValueChange={handleThinkingChange}
                 options={[
-                  { value: 'global', label: 'Use default', description: 'Inherit from app settings' },
+                  { value: 'global', label: t('placeholders.useDefault'), description: t('placeholders.inheritFromAppSettings') },
                   ...THINKING_LEVELS.map(({ id, name, description }) => ({
                     value: id,
                     label: name,

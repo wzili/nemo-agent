@@ -11,6 +11,10 @@
     "back": "Back",
     "next": "Next",
     "done": "Done",
+    "create": "Create",
+    "browse": "Browse",
+    "location": "Location",
+    "workspaceName": "Workspace name",
     "retry": "Retry",
     "refresh": "Refresh",
     "loading": "Loading...",
@@ -101,6 +105,18 @@
     "language": "Language",
     "languageDesc": "Language and region settings"
   },
+  "preferencesPage": {
+    "basicInfo": "Basic Info",
+    "name": "Name",
+    "timezone": "Timezone",
+    "language": "Language",
+    "location": "Location",
+    "city": "City",
+    "country": "Country",
+    "notes": "Notes",
+    "notesPlaceholder": "Any additional information you'd like to share with the AI assistant...",
+    "yourNamePlaceholder": "Your name"
+  },
   "dialog": {
     "resetApp": "Reset App",
     "resetAppConfirm": "This will permanently delete all your data and reset the app to its initial state.",
@@ -168,7 +184,20 @@
     "sessionArchived": "1 session archived",
     "sessionDeleted": "1 session deleted",
     "sessionFiles": "Session Files",
-    "selectConversation": "Select a conversation to get started"
+    "selectConversation": "Select a conversation to get started",
+    "sessionNoLongerExists": "This session no longer exists",
+    "session": "Session"
+  },
+  "toast": {
+    "sessionFlagged": "Session flagged",
+    "sessionFlaggedDescription": "Added to your flagged items",
+    "flagRemoved": "Flag removed",
+    "flagRemovedDescription": "Removed from flagged items",
+    "sessionArchived": "Session archived",
+    "sessionArchivedDescription": "Moved to archive",
+    "sessionRestored": "Session restored",
+    "sessionRestoredDescription": "Moved from archive",
+    "sessionDeleted": "Session deleted"
   },
   "workspace": {
     "renameWorkspace": "Rename workspace",
@@ -181,7 +210,24 @@
     "workspace": "Workspace",
     "createdWorkspace": "Created workspace \"{{name}}\"",
     "openInNewWindow": "Open in new window",
-    "noFolderSelected": "No folder selected"
+    "noFolderSelected": "No folder selected",
+    "createNew": "Create workspace",
+    "createNewDescription": "Enter a name and choose where to store your workspace.",
+    "myWorkspace": "My Workspace",
+    "defaultLocation": "Default location",
+    "chooseLocation": "Choose a location",
+    "pickPlace": "Pick a place to put your new workspace.",
+    "creating": "Creating...",
+    "underCraftAgentFolder": "under .craft-agent folder",
+    "addWorkspaceTitle": "Add Workspace",
+    "addWorkspaceDescription": "Where your ideas meet the tools to make them happen.",
+    "createNewOption": "Create new",
+    "createNewOptionDescription": "Start fresh with an empty workspace.",
+    "openFolder": "Open folder",
+    "openFolderDescription": "Choose an existing folder as workspace.",
+    "chooseExistingFolder": "Choose existing folder",
+    "chooseExistingFolderDescription": "Choose any folder to use as workspace.",
+    "opening": "Opening..."
   },
   "nav": {
     "allSessions": "All Sessions",
@@ -298,11 +344,26 @@
     "settingUp": "Setting up...",
     "apiSetup": "API Setup",
     "selectProvider": "Select a provider",
+    "welcomeToCraftAgents": "Welcome to Craft Agents",
+    "howWouldYouLikeToConnect": "How would you like to connect?",
     "enterApiKey": "Enter API Key",
     "selectModel": "Select Model",
     "continue": "Continue",
     "skip": "Skip",
-    "retry": "Retry"
+    "retry": "Retry",
+    "connectChatGPT": "Connect ChatGPT",
+    "connectChatGPTDescription": "Use your ChatGPT subscription to power Craft Agents.",
+    "connecting": "Connecting...",
+    "connectGitHubCopilot": "Connect GitHub Copilot",
+    "connectGitHubCopilotDescription": "Use your GitHub Copilot subscription to power Craft Agents.",
+    "waitingForAuthorization": "Waiting for authorization...",
+    "enterAuthorizationCode": "Enter Authorization Code",
+    "enterAuthorizationCodeDescription": "Copy the code from the browser page and paste it below.",
+    "connectClaudeAccount": "Connect Claude Account",
+    "connectClaudeAccountDescription": "Use your Claude subscription to power multi-agent workflows.",
+    "selectProviderPreset": "Select a provider preset and enter the API key. For arbitrary Anthropic-compatible endpoints, use Anthropic API Key mode.",
+    "enterApiKeyOptional": "Enter your API key. Optionally configure a custom endpoint for OpenRouter, Ollama, or compatible APIs.",
+    "validating": "Validating..."
   },
   "automation": {
     "automation": "Automation",
@@ -363,7 +424,14 @@
     "localFolder": "local folder",
     "noApiSourcesConfigured": "No API sources configured.",
     "noMcpSourcesConfigured": "No MCP sources configured.",
-    "noLocalSourcesConfigured": "No local sources configured."
+    "noLocalSourcesConfigured": "No local sources configured.",
+    "connection": "Connection",
+    "permissions": "Permissions",
+    "tools": "Tools",
+    "documentation": "Documentation",
+    "type": "Type",
+    "url": "URL",
+    "lastTested": "Last Tested"
   },
   "skill": {
     "skills": "Skills",
@@ -389,12 +457,17 @@
     "describeChange": "Describe what you'd like to change...",
     "searchModels": "Search models...",
     "filterStatuses": "Filter statuses...",
+    "filterFolders": "Filter folders...",
     "yourName": "Your name",
     "timezone": "e.g., America/New_York",
     "languageCode": "e.g., English",
     "localEndpoint": "e.g., http://localhost:11434",
     "modelName": "e.g., qwen3-coder, llama3.3",
-    "messageInput": "Message Nemo Agent..."
+    "messageInput": "Message Nemo Agent...",
+    "workingDirectory": "Working directory",
+    "chooseWorkingDirectory": "Choose working directory",
+    "useDefault": "Use default",
+    "inheritFromAppSettings": "Inherit from app settings"
   },
   "fileViewer": {
     "noFileSelected": "No file selected",
