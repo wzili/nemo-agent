@@ -168,7 +168,7 @@ export function apiSetupMethodToConnectionSetup(
 export function useOnboarding({
   onComplete,
   initialSetupNeeds,
-  initialStep = 'provider-select',
+  initialStep = 'welcome',
   initialApiSetupMethod,
   onDismiss,
   onConfigSaved,
